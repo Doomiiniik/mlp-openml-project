@@ -1,16 +1,35 @@
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Environments
 .env/
 .venv/
 venv/
 .envrc
 
-data/raw/
-data/processed/
-data/splits/
-runs/
-*.sqlite
+# Jupyter
 .ipynb_checkpoints/
+*.ipynb_checkpoints/
 
+# OS junk
+*.DS_Store
+*.log
+*.tmp
+
+# Raw data
+data/raw/
+
+# Processed data artifacts (keep CSVs)
+data/processed/*.pkl
+data/processed/*.npy
+
+# Models 
+models/*.pt
+notebooks/models/*.pt
+
+# TensorBoard logs
+runs/
+notebooks/runs/

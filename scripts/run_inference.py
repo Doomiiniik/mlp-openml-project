@@ -74,29 +74,6 @@ def main():
             all_preds.extend(preds)
             all_targets.extend(y.numpy())
 
-    # -----------------------------
-    # Metrics
-    # -----------------------------
-    acc = accuracy_score(all_targets, all_preds)
-    precision, recall, f1, _ = precision_recall_fscore_support(
-        all_targets, all_preds, average="weighted"
-    )
-
-    print("\n=== FINAL TEST METRICS ===")
-    print(f"Accuracy:  {acc:.4f}")
-    print(f"Precision: {precision:.4f}")
-    print(f"Recall:    {recall:.4f}")
-    print(f"F1-score:  {f1:.4f}")
-
-    print("\n=== CLASSIFICATION REPORT ===")
-    print(classification_report(all_targets, all_preds))
-
-    # -----------------------------
-    # Confusion matrix
-    # -----------------------------
-    cm = confusion_matrix(all_targets, all_preds)
-    print("\nConfusion Matrix:")
-    print(cm)
 
     # -----------------------------
     # Save predictions

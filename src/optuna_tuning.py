@@ -53,8 +53,8 @@ def objective(trial, df, feature_cols, target_col, device):
             device=device,
             epochs=10,
             grad_clip=grad_clip,
-            log_dir=None,          # wyłączamy TensorBoard w CV
-            save_path="temp.pt"    # zapis tymczasowy
+            log_dir=None,          
+            save_path="temp.pt"    
         )
 
         val_losses.append(best_val_loss)

@@ -1,0 +1,137 @@
+{
+    "num_samples": 3734,
+    "num_errors": 151,
+    "error_rate": 0.0404,
+    "per_class_f1": {
+        "A": 0.977,
+        "B": 0.9431,
+        "C": 0.9682,
+        "D": 0.9508,
+        "E": 0.9474,
+        "F": 0.9508,
+        "G": 0.9565,
+        "H": 0.9324,
+        "I": 0.932,
+        "J": 0.9592,
+        "K": 0.9541,
+        "L": 0.9774,
+        "M": 0.9829,
+        "N": 0.9781,
+        "O": 0.955,
+        "P": 0.9502,
+        "Q": 0.9967,
+        "R": 0.9435,
+        "S": 0.9617,
+        "T": 0.9562,
+        "U": 0.9644,
+        "V": 0.9424,
+        "W": 0.9896,
+        "X": 0.9517,
+        "Y": 0.9539,
+        "Z": 0.9655
+    },
+    "hardest_classes": [
+        [
+            "I",
+            0.932
+        ],
+        [
+            "H",
+            0.9324
+        ],
+        [
+            "V",
+            0.9424
+        ],
+        [
+            "B",
+            0.9431
+        ],
+        [
+            "R",
+            0.9435
+        ]
+    ],
+    "example_errors": [
+        {
+            "true_letter": "G",
+            "pred_letter": "E"
+        },
+        {
+            "true_letter": "I",
+            "pred_letter": "J"
+        },
+        {
+            "true_letter": "E",
+            "pred_letter": "G"
+        },
+        {
+            "true_letter": "L",
+            "pred_letter": "E"
+        },
+        {
+            "true_letter": "D",
+            "pred_letter": "O"
+        },
+        {
+            "true_letter": "D",
+            "pred_letter": "B"
+        },
+        {
+            "true_letter": "U",
+            "pred_letter": "M"
+        },
+        {
+            "true_letter": "S",
+            "pred_letter": "Z"
+        },
+        {
+            "true_letter": "I",
+            "pred_letter": "J"
+        },
+        {
+            "true_letter": "D",
+            "pred_letter": "S"
+        },
+        {
+            "true_letter": "U",
+            "pred_letter": "N"
+        },
+        {
+            "true_letter": "B",
+            "pred_letter": "V"
+        },
+        {
+            "true_letter": "O",
+            "pred_letter": "D"
+        },
+        {
+            "true_letter": "B",
+            "pred_letter": "V"
+        },
+        {
+            "true_letter": "H",
+            "pred_letter": "R"
+        },
+        {
+            "true_letter": "R",
+            "pred_letter": "B"
+        },
+        {
+            "true_letter": "R",
+            "pred_letter": "A"
+        },
+        {
+            "true_letter": "K",
+            "pred_letter": "H"
+        },
+        {
+            "true_letter": "T",
+            "pred_letter": "Z"
+        },
+        {
+            "true_letter": "C",
+            "pred_letter": "U"
+        }
+    ]
+}
