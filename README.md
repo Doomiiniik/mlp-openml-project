@@ -68,15 +68,15 @@ configs/best_config.json
 
 ## 🛠 Project Structure
 ```
-mlp-api/
+mlp-openml-project/
 ├── configs/              # Hyperparameter configs, Optuna results
 ├── data/                 # Processed datasets (train/test/val)
-├── models/               # Final trained model(s)
+├── models/               # Final trained model
 ├── notebooks/            # EDA
 ├── outputs/              # Predictions, plots, error analysis
 ├── reports/              # Model card
 ├── scripts/              # CLI scripts for training/inference
-├── app/                  # Backend, API, inference pipeline
+├── run_pipeline.py       # Full training + evaluation pipeline
 └── requirements.txt
 ```
 
