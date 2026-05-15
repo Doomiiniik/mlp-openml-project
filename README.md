@@ -67,7 +67,7 @@ configs/best_config.json
 ---
 
 ## 🛠 Project Structure
-
+```
 mlp-api/
 ├── configs/              # Hyperparameter configs, Optuna results
 ├── data/                 # Processed datasets (train/test/val)
@@ -78,7 +78,7 @@ mlp-api/
 ├── scripts/              # CLI scripts for training/inference
 ├── app/                  # Backend, API, inference pipeline
 └── requirements.txt
-
+```
 
 This structure mirrors **real ML production repositories**.
 
