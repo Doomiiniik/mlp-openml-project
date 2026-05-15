@@ -68,7 +68,16 @@ configs/best_config.json
 
 ## 🛠 Project Structure
 
-\\\bash mlp-api/ ├── configs/ # Hyperparameter configs, Optuna results ├── data/ # Processed datasets (train/test/val) ├── models/ # Final trained model(s) ├── notebooks/ # EDA ├── outputs/ # Predictions, plots, error analysis ├── reports/ # Model card ├── scripts/ # CLI scripts for training/inference ├── app/ # Backend, API, inference pipeline └── requirements.txt \\\
+mlp-api/
+├── configs/              # Hyperparameter configs, Optuna results
+├── data/                 # Processed datasets (train/test/val)
+├── models/               # Final trained model(s)
+├── notebooks/            # EDA
+├── outputs/              # Predictions, plots, error analysis
+├── reports/              # Model card
+├── scripts/              # CLI scripts for training/inference
+├── app/                  # Backend, API, inference pipeline
+└── requirements.txt
 
 
 This structure mirrors **real ML production repositories**.
