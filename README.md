@@ -1,5 +1,7 @@
 # Letter Classification with MLP — End‑to‑End Machine Learning Pipeline
 
+> This project's trained model was later deployed as a production API — see [api-mlp-project](https://github.com/Doomiiniik/api-mlp-project)
+
 A complete, modular machine learning pipeline for **multiclass letter classification (A–Z)** using a **Multilayer Perceptron (MLP)** trained on the OpenML Letter Recognition dataset.  
 The project demonstrates **production‑grade ML engineering practices**, including reproducible preprocessing, hyperparameter optimization, modular training, clean inference API, evaluation, and error analysis.
 
