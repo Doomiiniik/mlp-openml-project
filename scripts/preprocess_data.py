@@ -16,7 +16,7 @@ def main():
     RAW_DIR.mkdir(exist_ok=True)
 
     RAW_PATH = RAW_DIR / "openml_6.csv"
-
+    MODELS_DIR = BASE_DIR / "models"
     PROCESSED_DIR = BASE_DIR / "data/processed"
     PROCESSED_DIR.mkdir(exist_ok=True)
 
@@ -75,6 +75,11 @@ def main():
     train_scaled = apply_scaler(train_df, feature_cols, scaler)
     val_scaled = apply_scaler(val_df, feature_cols, scaler)
     test_scaled = apply_scaler(test_df, feature_cols, scaler)
+
+    # -----------------------------------------
+    # 4.5 SAVE SCALER (for inference / API)
+    # -----------------------------------------
+    joblib.dump(scaler, MODELS_DIR / "scaler.pkl")
 
     # -----------------------------------------
     # 5. SAVE
