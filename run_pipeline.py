@@ -39,13 +39,13 @@ def main():
 
     # Execute steps in correct order
     if args.preprocess:
-        run("Preprocessing", "scripts.run_preprocessing")
+        run("Preprocessing", "scripts.preprocess_data")
 
     if args.tune:
-        run("Optuna Hyperparameter Tuning", "scripts.run_optuna")
+        run("Optuna Hyperparameter Tuning", "scripts.tune_model")
 
     if args.train:
-        run("Final Training", "scripts.run_final_training")
+        run("Final Training", "scripts.train_model")
 
     if args.infer:
         run("Inference", "scripts.run_inference")
