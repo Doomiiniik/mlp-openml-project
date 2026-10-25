@@ -26,7 +26,7 @@ def main():
     BASE_DIR = Path(__file__).resolve().parent.parent
 
     # -----------------------------------------
-    # 1. LOAD PROCESSED TRAIN + VAL DATA
+    # 1. LOAD TRAIN + VAL DATA
     # -----------------------------------------
     TRAIN_PATH = BASE_DIR / "data/processed/train.csv"
     VAL_PATH = BASE_DIR / "data/processed/val.csv"
@@ -43,14 +43,9 @@ def main():
     target_col = "class"
     feature_cols = [c for c in train_df.columns if c != target_col]
 
+   
     # -----------------------------------------
-    # 2. MERGE TRAIN + VAL FOR FINAL TRAINING
-    # -----------------------------------------
-    full_df = pd.concat([train_df, val_df], ignore_index=True)
-    print(f"Final training dataset size: {len(full_df)} samples")
-
-    # -----------------------------------------
-    # 3. LOAD BEST CONFIG FROM OPTUNA
+    # 2. LOAD BEST CONFIG FROM OPTUNA
     # -----------------------------------------
     CONFIG_PATH = BASE_DIR / "configs/best_config.json"
     if not CONFIG_PATH.exists():
@@ -64,7 +59,7 @@ def main():
     print("Loaded best hyperparameters:", best)
 
     # -----------------------------------------
-    # 4. DEVICE
+    # 3. DEVICE
     # -----------------------------------------
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Using device: {device}")
@@ -72,7 +67,7 @@ def main():
         print("GPU:", torch.cuda.get_device_name(0))
 
     # -----------------------------------------
-    # 5. BUILD MODEL
+    # 4. BUILD MODEL
     # -----------------------------------------
     model = build_mlp(
         config={
@@ -86,15 +81,19 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=best["lr"])
 
     # -----------------------------------------
-    # 6. FINAL TRAINING DATALOADER (NO VALIDATION)
+    # 5. DATALOADERS (train + val for early stopping)   
     # -----------------------------------------
+
     train_loader = create_dataloader(
-        full_df, feature_cols, target_col,
+        train_df, feature_cols, target_col,                
         batch_size=best["batch_size"], shuffle=True
     )
-
+    val_loader = create_dataloader(                         
+        val_df, feature_cols, target_col,
+        batch_size=best["batch_size"], shuffle=False
+    )
     # -----------------------------------------
-    # 7. FINAL TRAINING
+    # 6. FINAL TRAINING WITH EARLY STOPPING
     # -----------------------------------------
     print("Starting final training...")
 
@@ -107,15 +106,15 @@ def main():
     train_final_model(
         model=model,
         train_loader=train_loader,
-        val_loader=None,          # no validation in final training
+        val_loader=val_loader,                             
         optimizer=optimizer,
         device=device,
-        epochs=40,
+        epochs=100,                                         
+        patience=7,                                         
         grad_clip=best["grad_clip"],
         save_path=best_model_path,
         log_dir=str(log_dir)
     )
-
     print(f"Final model saved to {best_model_path}")
 
 

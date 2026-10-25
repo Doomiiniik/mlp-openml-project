@@ -23,13 +23,14 @@ venv/
 data/raw/
 
 # Processed data artifacts (keep CSVs)
-data/processed/*.pkl
 data/processed/*.npy
 
 # Models 
-models/*.pt
 notebooks/models/*.pt
 
 # TensorBoard logs
 runs/
 notebooks/runs/
+
+#Temp
+temp.pt

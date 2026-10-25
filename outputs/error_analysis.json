@@ -1,137 +1,164 @@
 {
     "num_samples": 3734,
-    "num_errors": 151,
-    "error_rate": 0.0404,
+    "num_errors": 157,
+    "error_rate": 0.042,
     "per_class_f1": {
-        "A": 0.977,
-        "B": 0.9431,
-        "C": 0.9682,
-        "D": 0.9508,
-        "E": 0.9474,
-        "F": 0.9508,
-        "G": 0.9565,
-        "H": 0.9324,
-        "I": 0.932,
-        "J": 0.9592,
-        "K": 0.9541,
-        "L": 0.9774,
-        "M": 0.9829,
-        "N": 0.9781,
-        "O": 0.955,
-        "P": 0.9502,
-        "Q": 0.9967,
-        "R": 0.9435,
-        "S": 0.9617,
-        "T": 0.9562,
-        "U": 0.9644,
-        "V": 0.9424,
-        "W": 0.9896,
-        "X": 0.9517,
-        "Y": 0.9539,
-        "Z": 0.9655
+        "A": 0.9835,
+        "B": 0.9226,
+        "C": 0.9751,
+        "D": 0.9646,
+        "E": 0.9481,
+        "F": 0.9597,
+        "G": 0.9669,
+        "H": 0.9254,
+        "I": 0.9434,
+        "J": 0.9466,
+        "K": 0.9433,
+        "L": 0.9742,
+        "M": 0.9728,
+        "N": 0.9408,
+        "O": 0.9408,
+        "P": 0.9587,
+        "Q": 0.9868,
+        "R": 0.9377,
+        "S": 0.958,
+        "T": 0.9595,
+        "U": 0.9671,
+        "V": 0.9496,
+        "W": 0.9759,
+        "X": 0.9588,
+        "Y": 0.9699,
+        "Z": 0.9695
     },
     "hardest_classes": [
         [
-            "I",
-            0.932
+            "B",
+            0.9226
         ],
         [
             "H",
-            0.9324
-        ],
-        [
-            "V",
-            0.9424
-        ],
-        [
-            "B",
-            0.9431
+            0.9254
         ],
         [
             "R",
-            0.9435
+            0.9377
+        ],
+        [
+            "N",
+            0.9408
+        ],
+        [
+            "O",
+            0.9408
         ]
     ],
     "example_errors": [
         {
-            "true_letter": "G",
-            "pred_letter": "E"
-        },
-        {
-            "true_letter": "I",
-            "pred_letter": "J"
-        },
-        {
             "true_letter": "E",
-            "pred_letter": "G"
-        },
-        {
-            "true_letter": "L",
-            "pred_letter": "E"
-        },
-        {
-            "true_letter": "D",
-            "pred_letter": "O"
-        },
-        {
-            "true_letter": "D",
-            "pred_letter": "B"
-        },
-        {
-            "true_letter": "U",
-            "pred_letter": "M"
-        },
-        {
-            "true_letter": "S",
             "pred_letter": "Z"
         },
         {
-            "true_letter": "I",
-            "pred_letter": "J"
+            "true_letter": "B",
+            "pred_letter": "E"
         },
         {
-            "true_letter": "D",
-            "pred_letter": "S"
-        },
-        {
-            "true_letter": "U",
+            "true_letter": "H",
             "pred_letter": "N"
         },
         {
-            "true_letter": "B",
-            "pred_letter": "V"
+            "true_letter": "W",
+            "pred_letter": "M"
+        },
+        {
+            "true_letter": "C",
+            "pred_letter": "O"
         },
         {
             "true_letter": "O",
             "pred_letter": "D"
         },
         {
-            "true_letter": "B",
-            "pred_letter": "V"
+            "true_letter": "E",
+            "pred_letter": "G"
+        },
+        {
+            "true_letter": "N",
+            "pred_letter": "M"
+        },
+        {
+            "true_letter": "W",
+            "pred_letter": "M"
+        },
+        {
+            "true_letter": "P",
+            "pred_letter": "F"
+        },
+        {
+            "true_letter": "S",
+            "pred_letter": "E"
         },
         {
             "true_letter": "H",
-            "pred_letter": "R"
+            "pred_letter": "P"
         },
         {
-            "true_letter": "R",
-            "pred_letter": "B"
-        },
-        {
-            "true_letter": "R",
-            "pred_letter": "A"
-        },
-        {
-            "true_letter": "K",
+            "true_letter": "P",
             "pred_letter": "H"
         },
         {
-            "true_letter": "T",
-            "pred_letter": "Z"
+            "true_letter": "S",
+            "pred_letter": "B"
         },
         {
             "true_letter": "C",
-            "pred_letter": "U"
+            "pred_letter": "O"
+        },
+        {
+            "true_letter": "V",
+            "pred_letter": "Y"
+        },
+        {
+            "true_letter": "H",
+            "pred_letter": "B"
+        },
+        {
+            "true_letter": "Q",
+            "pred_letter": "O"
+        },
+        {
+            "true_letter": "I",
+            "pred_letter": "Y"
+        },
+        {
+            "true_letter": "I",
+            "pred_letter": "X"
+        }
+    ],
+    "top_confusions": [
+        {
+            "true": "S",
+            "pred": "B",
+            "count": 7
+        },
+        {
+            "true": "H",
+            "pred": "N",
+            "count": 6
+        },
+        {
+            "true": "K",
+            "pred": "R",
+            "count": 6
+        },
+        {
+            "true": "F",
+            "pred": "P",
+            "count": 5
+        },
+        {
+            "true": "J",
+            "pred": "I",
+            "count": 5
         }
     ]
 }

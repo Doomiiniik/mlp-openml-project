@@ -9,6 +9,7 @@ from sklearn.metrics import accuracy_score, precision_recall_fscore_support, con
 from src.models import build_mlp
 from src.data import create_dataloader
 
+import joblib
 
 def main():
     BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,13 +39,20 @@ def main():
     # -----------------------------
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
+
+
+
+
+    le = joblib.load(BASE_DIR / "data" / "processed" / "label_encoder.pkl")
+    num_classes = len(le.classes_)
+
     model = build_mlp(
         config={
             "hidden_layers": best["hidden_layers"],
             "dropout": best["dropout"]
         },
         input_dim=len(feature_cols),
-        output_dim=test_df[target_col].nunique()
+        output_dim=num_classes
     ).to(device)
 
     # Load weights
