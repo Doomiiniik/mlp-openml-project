@@ -1,140 +1,82 @@
-# Letter Classification with MLP — End‑to‑End Machine Learning Pipeline
+# Letter Classifier API
 
-> This project's trained model was later deployed as a production API — see [api-mlp-project](https://github.com/Doomiiniik/api-mlp-project)
+A small REST API that serves a PyTorch MLP classifying capital letters (A–Z)
+from 16 numeric features. Built to practice deploying an ML model:
+FastAPI, Docker, Nginx and HTTPS.
 
-A complete, modular machine learning pipeline for **multiclass letter classification (A–Z)** using a **Multilayer Perceptron (MLP)** trained on the OpenML Letter Recognition dataset.  
-The project demonstrates **production‑grade ML engineering practices**, including reproducible preprocessing, hyperparameter optimization, modular training, clean inference API, evaluation, and error analysis.
+Live demo: https://api.doomiiniik.dev/
 
-This repository is designed as a **portfolio‑ready ML project** showcasing engineering skills relevant for ML Engineer / Data Scientist roles.
+Model training lives in a separate repo: [mlp-openml-project](https://github.com/Doomiiniik/mlp-openml-project)
 
----
+## Model
 
-## 🚀 Key Features
+- PyTorch MLP: 16 inputs → 256 → 128 → 26 classes (ReLU, dropout)
+- Dataset: [OpenML Letter Recognition (ID 6)](https://www.openml.org/d/6), 16 numeric features
+  computed from images of printed capital letters
+- Test accuracy: 96.0% (3,734 test samples)
 
-- **End‑to‑end ML pipeline** (preprocessing → tuning → training → inference → evaluation)
-- **Optuna hyperparameter optimization** with 5‑fold cross‑validation
-- **Config‑driven architecture** (`configs/`)
-- **Modular codebase** (`src/`)
-- **Reproducible CLI scripts** (`scripts/`)
-- **Production‑style model saving & loading**
-- **Comprehensive evaluation** (F1, confusion matrix, hardest classes)
-- **Model card included** (`reports/model_card.md`)
-- **Clean, industry‑standard project structure**
+The API takes the 16 precomputed features, not an image.
 
----
+## API
 
-## 📊 Model Performance
+`POST /v1/predict`
 
-**Dataset:** OpenML Letter Recognition 
-**Classes:** 26 (A–Z)
-**Test samples:** 3,734
-
-| Metric | Score |
-|--------|--------|
-| **Accuracy** | ~96% |
-| **Weighted F1** | ~96% |
-| **Error Rate** | 4.04% |
-
-### Most challenging classes  
-The model shows lower performance on letters with similar geometric profiles:
-
-- I, H, V, B, R
-
-### Common confusions  
-- G ↔ E 
-- B ↔ V 
-- R ↔ B 
-- D ↔ O 
-- I ↔ J 
-
-All confusion patterns are **interpretable** and consistent with feature similarity.
-
----
-
-## 🧠 Model Architecture
-
-A fully‑connected **MLP classifier** with:
-
-- 2–3 hidden layers 
-- ReLU activations 
-- Dropout regularization 
-- Adam optimizer 
-- Early stopping 
-
-The exact architecture and hyperparameters are stored in:
-
-configs/best_config.json
-
-
----
-
-## 🛠 Project Structure
-```
-mlp-openml-project/
-├── configs/              # Hyperparameter configs, Optuna results
-├── data/                 # Processed datasets (train/test/val)
-├── models/               # Final trained model
-├── notebooks/            # EDA
-├── outputs/              # Predictions, plots, error analysis
-├── reports/              # Model card
-├── scripts/              # CLI scripts for training/inference
-├── run_pipeline.py       # Full training + evaluation pipeline
-└── requirements.txt
+Request:
+```json
+{ "features": [2, 8, 3, 5, 1, 8, 13, 0, 6, 6, 10, 8, 0, 8, 0, 8] }
 ```
 
-This structure mirrors **real ML production repositories**.
+Response:
+```json
+{ "predicted_class": "19", "probabilities": { "0": 0.0, "1": 0.0, "...": "..." } }
+```
 
----
+- `features` are raw dataset values (integers 0–15). The API applies the same
+  standardization as in training (mean and std stored in `configs/scaler.json`).
+- `predicted_class` is the class index (0–25, 0 = A, so 19 = T). The frontend maps it to a letter.
+- A request with a number of features other than 16 is rejected with HTTP 422.
 
-## 🔧 How to Run
+More inputs to try: `[5,12,3,7,2,10,5,5,4,13,3,9,2,8,4,10]` (I), `[4,11,6,8,6,10,6,2,6,10,3,7,2,8,3,9]` (D).
 
-### 1. Install dependencies
+Other endpoints: `GET /docs` (Swagger UI), `GET /metrics` (Prometheus metrics).
+
+## Run locally
+
 ```bash
 pip install -r requirements.txt
-
-python run_pipeline.py --all
+uvicorn app.main:app --reload
 ```
-or choose steps:
- ```
---preprocess
---tune
---train
---infer
---error
--viz
+
+Or with Docker (API + Prometheus + Grafana):
+
+```bash
+docker compose up --build
 ```
-All outputs will appear in outputs/
 
+API docs: http://localhost:8000/docs
 
-📁 Artifacts
+## Deployment
 
-    models/best_model.pt — final trained MLP
+Client → Nginx (HTTPS) → FastAPI on 127.0.0.1:8000 → model
 
-    configs/best_config.json — best hyperparameters
+- Ubuntu server, Nginx as reverse proxy and HTTPS termination
+- Certificate from Let's Encrypt (Certbot, automatic renewal)
+- Nginx serves the static frontend and proxies `/v1/`, `/docs`, `/openapi.json` to the backend
 
-    outputs/predictions.csv — predictions on test set
+## Project structure
 
-    outputs/error_analysis.json — misclassification statistics
+```
+app/main.py              app setup, middleware, routes
+app/api/v1/endpoints/    /predict endpoint
+app/schemas/             request/response validation (Pydantic)
+app/models/              model architecture, loading, inference
+app/middleware/          logging, error handling, metrics
+frontend/                static demo page
+models/, configs/        trained weights, model config, scaler parameters
+```
 
-    outputs/plots/ — confusion matrix, F1 scores, hardest classes
+## Limitations
 
-    reports/model_card.md — full model documentation
-⚠️ Limitations
-
-    Works only on numerical tabular features, not images
-
-    Not suitable for OCR or handwritten text
-
-    Sensitive to out‑of‑distribution inputs
-
-    MLP interpretability is limited
-
-📘 Model Card
-
-Full model card available in:
-reports/model_card.md
-
-👤 Author
-
-Dominik 
-Machine Learning Engineer — Portfolio Project
+- Input is a feature vector, not an image, so the demo is not very intuitive
+- No automated tests yet
+- No CI/CD, deployment is manual
