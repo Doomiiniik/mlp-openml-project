@@ -63,8 +63,9 @@ def objective(trial, df, feature_cols, target_col, device):
 
 
 
-def run_optuna(df, feature_cols, target_col, device, n_trials=20):
-    study = optuna.create_study(direction="minimize")
+def run_optuna(df, feature_cols, target_col, device, n_trials=20,seed=42):
+    sampler = optuna.samplers.TPESampler(seed=seed)
+    study = optuna.create_study(direction="minimize", sampler=sampler)
     study.optimize(
         lambda trial: objective(trial, df, feature_cols, target_col, device),
         n_trials=n_trials
