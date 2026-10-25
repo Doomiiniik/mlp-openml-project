@@ -124,7 +124,8 @@ def train_final_model(
     epochs,
     grad_clip=None,
     save_path="models/best_model.pt",
-    log_dir="runs/final"
+    log_dir="runs/final",
+    patience = None
 ):
     from torch.utils.tensorboard import SummaryWriter
     import torch.nn as nn
@@ -134,7 +135,7 @@ def train_final_model(
     criterion = nn.CrossEntropyLoss()
 
     best_val_loss = float("inf")
-
+    epochs_no_improve = 0
     for epoch in range(1, epochs + 1):
         # -------------------------
         # TRAINING
@@ -186,15 +187,21 @@ def train_final_model(
 
             writer.add_scalar("Loss/val", val_loss, epoch)
             writer.add_scalar("Accuracy/val", val_acc, epoch)
-
-            # save best model based on validation
+                        # save best model based on validation
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
+                best_epoch = epoch
+                epochs_no_improve = 0
                 torch.save(model.state_dict(), save_path)
+            else:
+                epochs_no_improve +=1    
 
             print(f"[Epoch {epoch}] Train Loss: {train_loss:.4f} | "
                   f"Val Loss: {val_loss:.4f} | Val Acc: {val_acc:.4f}")
 
+            if patience is not None and epochs_no_improve >= patience:
+                print(f"Early stopping at epoch {epoch},best epoch: {best_epoch}, best val loss: {best_val_loss:.4f}")
+                break                        
         else:
             # -------------------------
             # FINAL TRAINING (NO VAL)
