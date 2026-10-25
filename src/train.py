@@ -89,32 +89,6 @@ def load_best_model(model, path):
     model.eval()
     return model
 
-
-'''
-
-def train_final_model(model, train_loader, val_loader, optimizer, device,
-                      epochs, grad_clip=None, save_path="models/best_model.pt",
-                      log_dir="runs/final"):
-    
-    writer = SummaryWriter(log_dir)
-    best_val_loss = float("inf")
-
-    for epoch in range(1, epochs + 1):
-        train_loss = train_one_epoch(model, train_loader, optimizer, device, grad_clip)
-        val_loss, val_acc = validate(model, val_loader, device)
-
-        writer.add_scalar("Loss/train", train_loss, epoch)
-        writer.add_scalar("Loss/val", val_loss, epoch)
-        writer.add_scalar("Accuracy/val", val_acc, epoch)
-
-        if val_loss < best_val_loss:
-            best_val_loss = val_loss
-            torch.save(model.state_dict(), save_path)
-
-    writer.close()
-    return best_val_loss
-'''
-
 def train_final_model(
     model,
     train_loader,
