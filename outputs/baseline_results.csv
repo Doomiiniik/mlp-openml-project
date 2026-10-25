@@ -1,0 +1,4 @@
+model,test_accuracy,fit_seconds
+LogisticRegression,0.756,2.7
+RandomForest,0.9574,2.0
+HistGradientBoosting,0.9572,9.2
