@@ -60,6 +60,24 @@ def main():
     hardest = sorted(per_class_f1.items(), key=lambda x: x[1])[:5]
 
     df_errors = df[df["true_letter"] != df["pred_letter"]]
+    # -----------------------------
+    # Top confusion pairs (counted, not sampled)
+    # -----------------------------
+    pair_counts = (
+        df_errors
+        .groupby(["true_letter", "pred_letter"])
+        .size()
+        .sort_values(ascending=False)
+        .head(5)
+    )
+    top_confusions = [
+        {"true": t, "pred": p, "count": int(n)}
+        for (t, p), n in pair_counts.items()
+    ]
+
+
+
+
     sample_errors = df_errors[["true_letter", "pred_letter"]].sample(min(20, len(df_errors)), random_state=42)
 
     # -----------------------------
@@ -72,6 +90,7 @@ def main():
         "per_class_f1": per_class_f1,
         "hardest_classes": hardest,
         "example_errors": sample_errors.to_dict(orient="records"),
+        "top_confusions": top_confusions,
     }
 
     out_path = BASE_DIR / "outputs" / "error_analysis.json"
@@ -84,6 +103,14 @@ def main():
     print("\n=== ERROR ANALYSIS SUMMARY ===")
     print(f"Total samples: {out['num_samples']}")
     print(f"Errors: {out['num_errors']} ({out['error_rate']*100:.2f}%)")
+
+    print("\nTop confusions (true -> pred):")
+    for c in top_confusions:
+        print(f"{c['true']} -> {c['pred']}: {c['count']}")
+
+
+
+
 
     print("\nHardest classes (lowest F1):")
     for cls, f1 in hardest:

@@ -133,5 +133,32 @@
             "true_letter": "I",
             "pred_letter": "X"
         }
+    ],
+    "top_confusions": [
+        {
+            "true": "S",
+            "pred": "B",
+            "count": 7
+        },
+        {
+            "true": "H",
+            "pred": "N",
+            "count": 6
+        },
+        {
+            "true": "K",
+            "pred": "R",
+            "count": 6
+        },
+        {
+            "true": "F",
+            "pred": "P",
+            "count": 5
+        },
+        {
+            "true": "J",
+            "pred": "I",
+            "count": 5
+        }
     ]
 }
